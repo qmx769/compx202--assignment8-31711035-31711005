@@ -1,0 +1,2 @@
+rootProject.name='compx202-assignment8'
+include ':app'
