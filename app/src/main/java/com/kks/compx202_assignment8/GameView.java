@@ -20,7 +20,7 @@ import java.util.List;
 
 
 /**
- * Created by MarsZhou on 2017/5/20.
+ *
  */
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback, SensorEventListener {
