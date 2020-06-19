@@ -1,0 +1,20 @@
+TOTAL:
+After reading the requirements of this assignment, I understand that this is a simple game development based on our ass7. This is a small throwing game. There are goals and obstacles in the ball. If you throw the ball, there will be obstacles. If you meet the goal, you will succeed. After discussion, we call this "bang", which is the sound of objects colliding.
+PLANNING:
+1.     Preliminary work such as document creation. ü
+2.     Design a logo according to the game. The app has a customised icon (We drew the logo ourselves). Complete the change of software name. ü
+Preparation stage (0.5 hours)-Lu Yi
+
+3.     Draw the ball and brick, set the position, operation and brick layout of the ball. Set the color and color. Set up a movable board through which you can catch ball and control the direction of the ball.ü
+Game interface style (1 hours)- Qiu Minxuan
+Problem: The layout is not suitable, and the box cannot be displayed.
+4.     Complete the judgment of various critical point states of the ball, the way of the lower left corner, the way of the upper left corner, the way of the upper right corner, the way of the lower right corner, the way out of bounds, etc. (ball)ü
+5.     Complete the function of moving the board left and right. Finish hitting the brick in the upper left corner, the upper right corner, the lower left corner and the lower right corner. Bricks are obstacles.  Obstacles affect throwing. May include acceleration, deceleration, bounce, anti gravity, damage, etc.ü
+Game function realization (13 hours)-Qiu Minxuan, Lu Yi
+Problem: The board can't move. The ball is in the wrong state. The ball doesn't change when it touches an obstacle.
+6.     For the success or failure of the game, if the moving board at the bottom of the screen catches the ball bouncing back and forth, it will be success, if not, it will be failure. ü
+7.     Each time you catch the target, you get 1 point. If it is over, the Ranking page will show up.û
+Game end status (3hours)- Lu Yi, Qiu Minxuan
+Problem: The game cannot be ranke
+GitHub repository: qmx769
+Blackboard: Qiu Minxuan
