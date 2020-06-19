@@ -29,57 +29,57 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
     private int mBoardHeight = 40;
     private final int mBallRedit = 50;
     private final Sensor mAccelSensor;
-    //球当前坐标
+    //Sphere current coordinates
     private int mCurBallX;
     private int mCurBallY;
-    //板子所在左上坐标
+
     private int mBoardX1;
     private int mBoardY1;
-    //板子所在右下坐标
+    //The lower right coordinates of the board
     private int mBoardX2;
     private int mBoardY2;
     private SensorManager mSensorManager;
     private SurfaceHolder mHolder;
-    //板子画笔
+    //The board brushes
     private Paint mBoardPaint;
-    //球画笔
+    //The ball brush
     private Paint mBallPaint;
-    //砖画笔
+    //Obstacle brush
     private Paint mBrickPaint;
     public boolean isEnd;
-    //当前坐标
+    //The current coordinates
     private int mCurBoardX1;
     private int mCurBoardX2;
-    //板子移动速度
+    //Board movement speed
     private final int mBoardSpeed = 15;
-    //球移动的速度
+    //The speed at which the ball moves
     private final int mBallSpeed = 20;
     private static final String TAG = GameView.class.getSimpleName();
     public int mOrientation;
     private GameThread mGameThread;
-    //球当前的运行状态
+    //The current state of the ball
     private boolean isDown, isRight;
     private int state = -1;
-    //砖块的列数
+    //The number of columns of obstacles
     private final int mBricksCol = 5;
-    //砖块的行数
+    //The number of rows of obstacles
     private final int mBricksRow = 5;
-    //砖块的宽、高
+    //The width and height of the obstacle
     private final int mBrickWidth = 100;
     private final int mBrickHeight = 80;
     private final int mBrickSpace = 80;
     private int mBrick1X;
     private List<List<Brick>> mBricks;
     private boolean isSuccess;
-    //砖块一开始距离屏幕顶端的高度
+
     private final int mBrickInitHeight = 0;
-    //板子状态
+    //
     private int mBrickState;
 
 
     public GameView(Context context) {
         super(context);
-        //初始化画笔
+        //Initializing brush
         initPaint();
         mHolder = getHolder();
         mHolder.addCallback(this);
@@ -89,7 +89,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        //加速度传感器向左转动X轴获取值为负反之为负
+
         mSensorManager.registerListener(this, mAccelSensor, SensorManager.SENSOR_DELAY_UI);
     }
 
@@ -124,14 +124,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
 //            Log.e(TAG, "X--->" + values[0]);
             Log.e(TAG, "Y--->" + values[1]);
             if (values[0] > 0)
-                mOrientation = 0;//右
+                mOrientation = 0;//right
             else if (values[0] < 0)
-                mOrientation = 1;//左
+                mOrientation = 1;//left
 
             if (values[1] > 0)
-                mBrickState = 0;//板子向下收缩
+                mBrickState = 0;//
             else
-                mBrickState = 1;//板子向上伸长
+                mBrickState = 1;//
         }
     }
 
@@ -142,48 +142,48 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
 
     public void initPaint() {
         mBoardPaint = new Paint();
-        mBoardPaint.setColor(Color.BLACK);
+        mBoardPaint.setColor(Color.WHITE);
         mBoardPaint.setStyle(Paint.Style.FILL);
         mBallPaint = new Paint();
-        mBallPaint.setColor(Color.RED);
+        mBallPaint.setColor(Color.BLUE);
         mBallPaint.setStyle(Paint.Style.FILL);
         mBrickPaint = new Paint();
-        mBrickPaint.setColor(Color.BLUE);
+        mBrickPaint.setColor(Color.GREEN);
         mBrickPaint.setStyle(Paint.Style.FILL);
     }
 
     /**
-     * 球
+     * ball
      *
      * @param canvas
      */
     public void drawBall(Canvas canvas) {
-        //小球临界点判断
-        if (mCurBallX <= mBallRedit && isDown) { //小球以左下角的方式
+        //Pellet critical point judgment
+        if (mCurBallX <= mBallRedit && isDown) { //In the lower left hand corner
             state = 0;
             isDown = true;
             isRight = true;
-        } else if (mCurBallX <= mBallRedit && !isDown) {//小球以左上角的方式
+        } else if (mCurBallX <= mBallRedit && !isDown) {//The upper left corner
             state = 1;
             isDown = false;
             isRight = true;
-        } else if (mCurBallY <= mBallRedit && isRight) {//小球以右上的方式
+        } else if (mCurBallY <= mBallRedit && isRight) {//The upper right
             state = 2;
             isDown = true;
             isRight = true;
-        } else if (mCurBallY <= mBallRedit && !isRight) {//小球以左上的方式
+        } else if (mCurBallY <= mBallRedit && !isRight) {//Upper left
             state = 3;
             isDown = true;
             isRight = false;
-        } else if (mCurBallX >= getWidth() - mBallRedit && isDown) {//小球以右下角的方式
+        } else if (mCurBallX >= getWidth() - mBallRedit && isDown) {//The lower right corner
             state = 4;
             isDown = true;
             isRight = false;
-        } else if (mCurBallX >= getWidth() - mBallRedit && !isDown) {//小球以右上角的方式
+        } else if (mCurBallX >= getWidth() - mBallRedit && !isDown) {//The top right corner
             state = 5;
             isDown = false;
             isRight = false;
-        } else if (mCurBallY >= getHeight() - mBallRedit) {//小球出界
+        } else if (mCurBallY >= getHeight() - mBallRedit) {//Balls out
             state = 6;
             isDown = true;
             isRight = true;
@@ -256,7 +256,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
     }
 
     /**
-     * 板子
+     *
      *
      * @param canvas
      */
@@ -270,17 +270,17 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
             mCurBoardX1 = getWidth() - mBoardWidth;
             mCurBoardX2 = getWidth();
         } else {
-            if (mOrientation == 0) {//右
+            if (mOrientation == 0) {//right
                 mCurBoardX1 -= mBoardSpeed;
                 mCurBoardX2 -= mBoardSpeed;
-            } else if (mOrientation == 1) {//左
+            } else if (mOrientation == 1) {//left
                 mCurBoardX1 += mBoardSpeed;
                 mCurBoardX2 += mBoardSpeed;
             }
         }
         if (mBrickState == 1){
             if (mBoardY1 >= 0){
-                  mBoardY1 -= 10;
+                mBoardY1 -= 10;
             }
         }else if (mBrickState == 0){
             if (mBoardY1 <= getHeight() - mBoardHeight){
@@ -291,13 +291,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
     }
 
     /**
-     * 砖块
+     *
      *
      * @param canvas
      */
     public void drawBrick(Canvas canvas) {
         isSuccess = true;
-        //绘制砖块
+        //Draw an obstacle
         for (List<Brick> brick : mBricks) {
             for (Brick b : brick) {
                 if (mCurBallX >= b.mBrickX1 && mCurBallX <= b.mBrickX2 && mCurBallY >= b.mBrickY1 && mCurBallY <= b.mBrickY2) {
@@ -305,19 +305,19 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
                     b.mBrickX2 = 0;
                     b.mBrickY1 = 0;
                     b.mBrickY2 = 0;
-                    if (!isDown && !isRight) {          //以左上角撞击砖块
+                    if (!isDown && !isRight) {          //Top left hitting the brick
                         state = 3;
                         isDown = true;
                         isRight = false;
-                    } else if (!isDown && isRight) {   //以右上角撞击砖块
+                    } else if (!isDown && isRight) {   //The upper right corner hits the brick
                         state = 2;
                         isDown = true;
                         isRight = true;
-                    } else if (isDown && !isRight) {   //以左下角撞击砖块
+                    } else if (isDown && !isRight) {   //The lower left corner
                         state = 9;
                         isDown = false;
                         isRight = false;
-                    } else if (isDown && isRight) {     //以右下角撞击砖块
+                    } else if (isDown && isRight) {     //The lower right corner
                         state = 10;
                         isDown = false;
                         isRight = true;
@@ -346,7 +346,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
 
     public void initBrick() {
         mBricks = new ArrayList<>();
-        for (int i = 0; i < mBricksRow; i++) {//砖块的行列数
+        for (int i = 0; i < mBricksRow; i++) {//The number of rows and rows of obstacles
             List<Brick> mBrickRow = new ArrayList<>();
             for (int j = 0; j < mBricksCol; j++) {
                 mBrickRow.add(new Brick(mBrick1X + j * (mBrickWidth + mBrickSpace), mBrickInitHeight + i * (mBrickSpace + mBrickHeight), mBrick1X + j * (mBrickWidth + mBrickSpace) + mBrickWidth, mBrickInitHeight + mBrickHeight + i * (mBrickSpace + mBrickHeight)));
@@ -356,7 +356,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Sen
     }
 
     /**
-     * 重绘View
+     *
      */
     public class GameThread extends Thread {
         public GameThread() {
